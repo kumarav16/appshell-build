@@ -1,0 +1,40 @@
+{
+  "name": "bh-app-shell",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "@preemptive/jsdefender-cli": "file:preemptive-jsdefender-cli-2.3.0.tgz",
+    "@preemptive/jsdefender-core": "file:preemptive-jsdefender-core-2.3.0.tgz",
+    "@preemptive/jsdefender-webpack-plugin": "file:preemptive-jsdefender-webpack-plugin-2.3.0.tgz",
+    "@bh-ent-tech/bh-obfuscation-adapter": "^1.0.1",
+    "concurrently": "^7.6.0",
+    "fs-extra": "^10.0.0",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "custom-build": "cd server && npm run-script design-build && npm run-script tsc-script",
+    "ccode-build": "cd server && rimraf build && cd.. && npm run-script custom-build  && concurrently \"cd client && npm run-script ccode-build\" \"cd server && npm run-script build\"",
+    "build": "npm run-script custom-build  && concurrently \"cd client && npm run-script build\" \"cd server && rimraf build && npm run-script build\"",
+    "install": "concurrently \"cd client && npm  install\" \"cd server && npm install\"",
+    "start:dev": "concurrently \"cd client && npm start\" \"cd server && npm start\"",
+    "start": "cd server && npm start",
+    "build-start": "npm run-script ccode-build && npm run-script start",
+    "create-config": "node create-config.js",
+    "defend": "jsdefender -c jsdefender.config.json --license 283CD738ECFA4C4FBB00BC3D3C70BFC2",
+    "obfuscate": "jsdefender --license 283CD738ECFA4C4FBB00BC3D3C70BFC2",
+    "replace-obfuscated-files": "node move-obfuscated-files.js",
+    "create-config-server": "node create-config-server.js",
+    "replace-obfuscated-files-server": "node move-obfuscated-files-server.js",
+    "my-command": "cd server && rimraf build && cd.. && cd client && rimraf build && cd.. && npm run ccode-build && npm start",
+    "build-svr": "cd server && rimraf build && npm run-script build && npm start",
+    "local": "docker-compose -f docker-compose.yml up --remove-orphans",
+    "update": "docker-compose -f docker-compose.yml up -d"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bh-ent-tech/npm-local.git"
+  }
+}

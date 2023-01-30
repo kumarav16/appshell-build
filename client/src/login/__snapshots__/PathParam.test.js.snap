@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PathParam verify for PathParam data got success when loads 1`] = `ReactWrapper {}`;

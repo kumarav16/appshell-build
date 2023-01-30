@@ -1,0 +1,226 @@
+def userInput
+def buildVersion = ''
+def git_url = 'https://github.com/bh-ent-tech/app-shell.git'
+pipeline{
+    agent {
+	    node{
+            label 'docker'
+            customWorkspace '/home/jenkins/workspace/mtc_jobs/cde-app-shell/bh-devops-CI-workspace/'
+        }
+	}
+// customWorkspace to be defined in case of using clamav scan.    
+    options {
+    disableConcurrentBuilds()
+    buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '30'))
+  } 
+
+    parameters {
+        string(name: 'Major', defaultValue: '1', description: 'provide the Major version')
+        string(name: 'Minor', defaultValue: '2', description: 'provide the Minor version')
+	    string(name: 'Revision', defaultValue: '', description: 'Keep it empty if BuildType is Normal. Provide Revision if BulidType is Patch')
+        choice(name: 'BuildType', choices: ['Normal','Patch'])
+        string(name: 'image_build', defaultValue: 'cde-app-shell', description: 'provide the name of the image to be built')
+	    string(name: 'registry_name', defaultValue: 'ghcr.io/bh-ent-tech/', description: 'provide the docker registry name to push the image')
+        choice(name: 'Branch_to_Build', choices: ['master','develop'] , description: 'branch to be checked out for building the code')
+        
+    }
+// define the credentials to be used according to the project requirements in environment.
+    environment {
+        cdecred = credentials('bh-ent-tech-ghcr-token')
+        gitcred = credentials('NEW_BH_GIT')
+        version = ''
+    }
+    stages{
+        stage('Check prerequisites'){
+            steps{
+                script{
+                    cleanWs()
+	                    if ("${params.image_build}" == ''){
+                        currentBuild.result = 'ABORTED'
+                        error('Image name not provided !!!')
+                    }
+                }
+            }
+        }
+// update gitrepo details accordingly in git_url to checkout the code.        
+        stage("Git Checkout")
+		{
+            steps{
+                git branch: "${Branch_to_Build}" , credentialsId: 'NEW_BH_GIT', url: "${git_url}"
+            }
+        }
+
+        
+    
+       stage('Build and Sonar Scan')
+		{
+		 /*   agent{
+                docker {
+                        image 'node:14'   
+                        reuseNode true
+                    }
+		    }
+		    */
+            steps {
+              
+              
+			       
+                sh '''
+                
+                
+                    echo ${WORKSPACE}
+                    npm install
+                    '''
+              
+                
+            } 
+        }
+/*
+// use this stage for triggering the clamav scan for npm projects.
+        stage('Scanning the Artifacts using clamav scan')
+        {  
+            steps{
+                script{
+                
+                sh '''
+                pwd
+                echo ${WORKSPACE}
+                ls *.tgz | tee bldjars.txt
+                cat bldjars.txt
+                while IFS= read -r line; do 
+                ls -l $line
+                curl -s -XPOST http://172.16.240.214:8080/api/v1/scan -F FILES=@./${line} | jq . >> scan.out
+                flg=$(grep -w "is_infected" scan.out | awk '{ print $2}'| sed 's/,//g')
+                echo $flg 
+                if [ -z "$flg" ];
+                then
+                {
+                    echo 'No value in flg'  
+                } 
+                elif [ "$flg" == "true" ];
+                then
+                {
+                    echo "Virus detected, hence aborting build. please check"
+                    exit 1
+                }
+                elif [ "$flg" == "false" ];
+                then
+                {
+                    echo "No Virus detected, hence proceeding build. "
+                    
+                }
+                
+                else
+                    echo "None of the condition met"
+                fi			
+                done < bldjars.txt
+                cat scan.out  
+                '''
+                }
+            }
+        }
+*/
+/*
+For clam AV scan report we need to trigger a freestyle job which will be scanning the artifacts present in the custom workspace defined in agents. Please refer https://jenkins.ops.fullstream.ai/job/MTC_Jobs/job/Security-Service/job/Pipelines-CI/job/bh-data-filtering-config-service-avscan-report/ for creating the freestyle job. Path to the freestyle job needs to be updated accordingly in build job in below stage.
+*/
+/*
+        stage('Publish AV scan Report')
+        {
+            steps{
+                build job: 'avscan-report',
+		wait: false
+              echo "This stage is to trigger downstream job to publish Antivirus Scan Report"
+            }
+        }
+*/
+
+//Assuming the dockerfile is present in base path, otherwise update the hadolint command accordingly.
+stage ("Linting Dockerfile") {
+    agent {
+        docker {
+            image 'hadolint/hadolint:latest-debian'
+            //image 'ghcr.io/hadolint/hadolint:latest-debian'
+        }
+    }
+    steps {
+        sh 'hadolint ./Dockerfile | tee -a dockerfile_lint.txt'
+    }
+    post {
+        always {
+            archiveArtifacts 'dockerfile_lint.txt'
+        }
+    }
+}
+	
+//Assuming the dockerfile is present in base path, otherwise update the build command accordingly. It creates a tag and push it in github for each build, remove if not required.   
+        stage("Docker Image Build")
+        {
+            environment{
+                giturl="${git_url}"
+            }
+            steps{
+                script{
+                wrap([$class: 'BuildUser']) {
+
+		    sh '''
+		    if [ "$BuildType" == "Normal" ]
+			    then
+				patch=0
+			    fi
+			if [ "$BuildType" == "Patch" ]
+			    then
+				patch="$BUILD_NUMBER"
+				BUILD_NUMBER=$Revision
+			    fi
+		    image_name=${registry_name}${image_build}:v$Major.$Minor.$patch.$BUILD_NUMBER
+		    version="v$Major.$Minor.$patch.$BUILD_NUMBER"
+		    echo $version > buildversion.txt
+		    echo $image_name
+		    docker login --username ${cdecred_USR} ${registry_name} --password ${cdecred_PSW}
+		    docker build -t $image_name .
+		    #docker push $image_name
+		    docker images
+		    docker rmi $image_name
+		    if [ "$Branch_to_Build" == "master" ] || [ "$Branch_to_Build" == "main" ];
+			    then {
+		    echo "${giturl}"
+		    git config --local user.name "Jenkins"
+                    git config --local credential.helper "!f() { echo username=\$gitcred_USR; echo password="\$gitcred_PSW"; }; f"
+		    git tag -a "$version" -f -m "Created By:\${BUILD_USER} , branch:${Branch_to_Build}"
+		    git push "${giturl}" "$version"
+			}
+			fi
+		    '''
+		    buildVersion = readFile('buildversion.txt').trim()
+		    currentBuild.displayName = "$image_build:$buildVersion"
+	    	  
+            }
+            }
+            }
+        }
+
+/*
+This stage will update the yaml files in github and deploy it using argocd. 
+update_deployment_manifest job path needs to update accordingly(refrence job : https://jenkinsops.prd-0000108.pause1.bakerhughes.com/job/MTC_Jobs/job/DEVOPS/job/update_deployment_manifest/)
+
+*/
+      /* stage('Update Manifest'){
+            steps {
+                script {
+                        echo "Proceeding with comitting the changes on GitHub..."
+                        build job: '../DEV/update_deployment_manifest', 
+				parameters: [
+          string(name: 'IMAGE_NAME', value: "${image_build}"), string(name: 'IMAGE_TAG', value: "${buildVersion}"), string(name: 'REGISTRY', value: "${registry_name}"), string(name: 'DIR_NAME', value: "dev")],
+          wait: false
+                    }
+                }
+            }
+            */
+        }
+	// Workspace cleanup
+           post {
+             always {
+                cleanWs()
+             }
+           }
+    }

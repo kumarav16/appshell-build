@@ -1,0 +1,31 @@
+{
+  "header": {
+    "name":"app-header",
+    "componentName":"VerticalHead"
+  },
+  "Container": {
+      "classname":"grid-container",
+    "StylingAttributes": {
+      "display": "grid",
+      "grid-template-rows": "25% 25% 25% 25%",
+      "grid-template-columns": "25% 25% 25% 25%",
+      "grid-auto-rows": "150px",
+      "height": "calc(100vh - 72px)",
+      "width": "100%",
+      "margin-top": "72px",
+      "padding-left": "58px"
+    },
+    "CommonSection": [],
+    "mainSection": {
+      "name": "main-app",
+     "type": "App",
+      "StylingAttributes": {
+        "grid-column-start": "1",
+        "grid-column-end": "5",
+        "grid-row-start": "1",
+        "grid-row-end": "5"
+      }
+    }
+  },
+  "footer": {}
+}

@@ -1,0 +1,73 @@
+# To run compose run command : npm run local
+# creds to login to appshell => id : appshell, password :test
+version: '3.8'
+services:
+  app-shell:
+    image: ghcr.io/bh-ent-tech/cde-app-shell:v1.2.0.309
+    env_file:
+      - env/app-shell.env
+    ports:
+      - 8000:8000
+      - 9000:9000
+    # volumes:
+    #   - ./env/favicon.ico:/app-shell/client/build/favicon.ico
+    depends_on:
+      - security-service
+  security-service:
+    image: ghcr.io/bh-ent-tech/bh-security-service:v1.2.0.69
+    env_file:
+      - env/security-service.env
+    ports:
+      - 8002:8080
+    depends_on:
+      - keycloak
+  keycloak:
+    image: ghcr.io/bh-ent-tech/keycloak:15-audit-test
+    env_file:
+      - env/keycloak-service.env
+    depends_on:
+      - keycloak-pg
+    ports:
+      - 8001:8080
+    volumes:
+      - ./config/keycloak:/data/import
+    command:
+      - "-Dkeycloak.profile.feature.upload_scripts=enabled"
+      - "-Dkeycloak.migration.action=export"
+      - "-Dkeycloak.migration.provider=singleFile"
+      - "-Dkeycloak.migration.file=/data/import/bootexport.json"
+      - "-Dkeycloak.migration.realmName=appshell"
+  keycloak-pg:
+    image: postgres:11.4
+    restart: always
+    environment:
+      - POSTGRES_USER=userxyz
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=mydb1
+  # asset-service:
+  #   image: cde-docker-registry.eic.fullstream.ai/asset-2.0:1069
+  #   env_file:
+  #     - asset-service.env
+  #   depends_on:
+  #     - security-service
+  #     - asset-pg
+  #   ports:
+  #     - 8005:5000
+  # asset-pg:
+  #   image: postgres:11.4
+  #   restart: always
+  #   environment:
+  #     - POSTGRES_USER=userxyz
+  #     - POSTGRES_PASSWORD=password123
+  #     - POSTGRES_DB=mydb1
+  # app-onboarding:
+  #   image: nginx:latest
+  #   volumes:
+  #     - ./app/onboarding:/usr/share/nginx/html:ro
+  #   ports:
+  #     - 8006:80
+  # security-service-redis:
+  #   image: "redis:latest"
+  #   command: redis-server --include /usr/local/etc/redis/redis.conf
+  #   volumes:
+  #     - ./config/redis:/usr/local/etc/redis/redis.conf

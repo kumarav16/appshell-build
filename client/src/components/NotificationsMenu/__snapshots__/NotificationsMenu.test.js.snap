@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationsMenu verify for NotificationsMenu data got success when loads 1`] = `ReactWrapper {}`;
+
+exports[`NotificationsMenu verify for NotificationsMenu gets showNotificationsMenu as false 1`] = `ReactWrapper {}`;

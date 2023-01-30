@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test general feedback verify for Generalfeedback props children 1`] = `ShallowWrapper {}`;
+
+exports[`test general feedback verify for ThankuFeedback props children 1`] = `ReactWrapper {}`;

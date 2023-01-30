@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`verify breadcrumb  should render initial layout 1`] = `
+Array [
+  <WithStyles(BreadcrumbComponent)
+    i18n={Object {}}
+    t={[Function]}
+    tReady={false}
+  />,
+]
+`;

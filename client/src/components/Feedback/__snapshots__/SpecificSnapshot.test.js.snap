@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScreenCaptures verify for Generalfeedback props children 1`] = `ShallowWrapper {}`;
+
+exports[`ScreenCaptures verify for SpecificSnapshot props children 1`] = `ShallowWrapper {}`;
+
+exports[`SpecificSnapshot verify for Generalfeedback props children 1`] = `ShallowWrapper {}`;
+
+exports[`SpecificSnapshot verify for SpecificSnapshot props children 1`] = `ShallowWrapper {}`;

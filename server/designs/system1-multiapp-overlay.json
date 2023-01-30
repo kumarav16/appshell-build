@@ -1,0 +1,61 @@
+{
+  "header": {
+    "name":"app-header",
+    "componentName":"HorizontalHead"
+  },
+  "Container": {
+    "classname":"grid-container",
+    "StylingAttributes": {
+      "display": "grid",
+      "grid-template-row": "18.4% 20.4% 20.4% 20.4% 20.4%",
+      "grid-template-columns": "3.03% 24.2425% 24.2425% 24.2425% 24.2425%",
+      "grid-gap": "0px",
+      "height":"calc(100vh - 117px)",
+      "width":"100%",
+      "margin-top": "116px"
+    },
+    "CommonSection": [      
+      { 
+        "name": "PinAppWrapper",
+        "id": "PinAppWrapper",
+        "containerName":"pinapp-wrapper",
+        "type": "component",
+        "StylingAttributes": {
+          "grid-column-start": "1",
+          "grid-column-end": "2",
+          "grid-row-start": "1",
+          "grid-row-end": "5",
+          "background":"white",
+          "z-index": "3",
+          "width": "100%",
+          "min-width": "58px",
+          "overflow": "hidden"
+        },
+        "nested":true,
+        "nestedElement":{
+          "id": "hierarchyModesApp",
+          "name": "Hierarchy Modes",
+          "type": "App",
+          "StylingAttributes": {
+            "z-index": "1"
+          }
+        }
+      }
+      
+      
+    ],
+    "mainSection": {
+      "name": "main-app",
+     "type": "App",
+      "StylingAttributes": {
+        "grid-column-start": "2",
+        "grid-column-end": "6",
+        "grid-row-start": "1",
+        "grid-row-end": "5",
+        "height":"100%"
+      }
+    }
+  },
+  "footer": {
+  }
+}

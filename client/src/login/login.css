@@ -1,0 +1,42 @@
+#loginForm .bh-dropdown {
+    width: 100% !important;
+}
+
+#loginForm .bh-dropdown__input {
+    width: 100% !important;
+    height: 44px;
+}
+
+#loginForm .bh-menu__container.width--medium {
+    width: 100% !important;
+}
+
+#loginForm .bh-text-input__container {
+    flex-direction: column !important;
+    align-items: center;
+    width: 100%;
+}
+
+#loginForm .bh-text-input__input {
+    width: 100% !important;
+}
+
+#loginForm .bh-dropdown__icon {
+    right: 4% !important;
+}
+
+#loginForm .bh-dropdown__container {
+    margin-bottom: 8% !important;
+}
+
+#loginForm my-custom-button.bh-button__container {
+    width: 100% !important;
+}
+
+#loginForm .bh-button {
+    min-width: 94% !important;
+}
+
+#loginForm .MuiFormControl-marginNormal {
+    margin-bottom: -8px !important;
+}

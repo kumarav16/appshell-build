@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorComponent verify for ErrorComponent when error throws 1`] = `ReactWrapper {}`;
+
+exports[`ErrorComponent verify for ErrorComponent when no notification present 1`] = `ReactWrapper {}`;

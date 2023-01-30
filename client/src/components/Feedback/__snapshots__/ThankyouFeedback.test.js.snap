@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ThankyouFeedback Thankyou mounting  when openThanku and errorFlag are different 1`] = `ReactWrapper {}`;
+
+exports[`ThankyouFeedback Thankyou mounting  when openThanku and errorFlag are different, window.i18Resource has no value 1`] = `ReactWrapper {}`;
+
+exports[`ThankyouFeedback Thankyou mounting  when openThanku and errorFlag are different, window.i18Resource has value 1`] = `ReactWrapper {}`;
+
+exports[`ThankyouFeedback Thankyou mounting  when openThanku and errorFlag are false 1`] = `ReactWrapper {}`;
+
+exports[`ThankyouFeedback verify for ThankyouFeedback props children 1`] = `ShallowWrapper {}`;

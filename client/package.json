@@ -1,0 +1,112 @@
+{
+  "name": "app-shell-client",
+  "version": "1.0.0",
+  "license": "",
+  "dependencies": {
+    "@baker-hughes-central-design/ui-toolkit-react": "^0.9.5",
+    "@material-ui/core": "4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.10.0",
+    "@testing-library/react": "^9.4.0",
+    "classnames": "^2.2.6",
+    "cross-env": "^7.0.3",
+    "dangerously-set-html-content": "1.0.9",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "html2canvas": "1.4.1",
+    "i18next": "^19.8.7",
+    "i18next-http-backend": "^1.2.2",
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.21",
+    "material-ui": "^0.20.2",
+    "moment": "^2.29.1",
+    "nodejs-sonar-scanner": "^4.0.4",
+    "react": "^16.12.0",
+    "react-app-polyfill": "^2.0.0",
+    "react-collapse": "^5.1.0",
+    "react-dom": "^16.13.1",
+    "react-frame-component": "^4.1.3",
+    "react-i18next": "^11.8.15",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^4.0.1",
+    "simple-encryptor": "^4.0.0",
+    "socket.io-client": "^3.1.2"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/registerServiceWorker.js",
+      "!src/network/api.js",
+      "!src/templates/*",
+      "!src/stories/*",
+      "!src/login/LoginPageOld.js",
+      "!src/components/header/header.js",
+      "!src/HomeTemplate.js",
+      "!src/i18n/index.js",
+      "!src/login/ChangePassword.js",
+      "!src/login/ForgetPassword.js",
+      "!src/login/ForgotPassword.test.js",
+      "!src/login/ChangePassword.test.js",
+      "!src/login/PasswordSuccess.js",
+      "!src/login/PasswordSuccess.test.js",
+      "!src/Home.js",
+      "!src/Home.test.js",
+      "!src/namespaced-components.js",
+      "!src/components/Feedback/ScreenCaptures.js",
+      "!src/login/PreLoginPage.js",
+      "!src/i18n/*"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 5,
+        "branches": 5,
+        "functions": 5,
+        "lines": 5
+      }
+    },
+    "coverageReporters": [
+      "html",
+      "json-summary",
+      "lcov"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "package.json",
+      "package-lock.json"
+    ]
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false GENERATE_SOURCEMAP=false react-scripts build",
+    "ccode-build": "cross-env INLINE_RUNTIME_CHUNK=false react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "test:coverage": "cross-env CI=true && react-scripts test --watchAll=false --coverage --forceExit",
+    "eject": "react-scripts eject",
+    "sonar": "sonar-scanner",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.1.9",
+    "@storybook/addon-controls": "^6.4.19",
+    "@storybook/addon-essentials": "^6.1.9",
+    "@storybook/addon-links": "^6.1.9",
+    "@storybook/node-logger": "^6.1.9",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.10",
+    "@testing-library/jest-dom": "^5.16.1",
+    "fetch-mock": "^9.11.0",
+    "react-test-renderer": "^16.12.0"
+  }
+}

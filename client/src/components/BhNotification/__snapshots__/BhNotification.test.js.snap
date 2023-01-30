@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BhNotification verify for BhNotification data got success when loads 1`] = `ReactWrapper {}`;
+
+exports[`BhNotification verify for BhNotification has no data response, no notification error screen will be displayed 1`] = `ReactWrapper {}`;
+
+exports[`BhNotification verify for BhNotification has no data response, no notification yet screen will be displayed 1`] = `ReactWrapper {}`;
+
+exports[`BhNotification verify for BhNotification has no filter 1`] = `ReactWrapper {}`;
+
+exports[`BhNotification verify for BhNotification has no tabMenu and no softDelete config data 1`] = `ReactWrapper {}`;
+
+exports[`BhNotification verify for BhNotification has read notification as response, no recent notification message will be displayed 1`] = `ReactWrapper {}`;
+
+exports[`BhNotification verify for BhNotification has timeSettings customized 1`] = `ReactWrapper {}`;

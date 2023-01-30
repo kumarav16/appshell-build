@@ -1,0 +1,79 @@
+{
+  "name": "app-shell-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "license": "",
+  "dependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-stage-0": "^7.8.3",
+    "@cloudnative/health": "^2.1.2",
+    "@bh-ent-tech/ss_client_node_adapter": "4.1.2",
+    "@supercharge/request-ip": "^1.1.2",
+    "apicache": "^1.2.3",
+    "axios": "^0.26.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "babel-plugin-transform-remove-strict-mode": "^0.0.2",
+    "chai-http": "^4.3.0",
+    "compression": "^1.7.3",
+    "connect-redis": "^5.0.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "docker-host-ip": "^1.0.1",
+    "express": "^4.14.1",
+    "express-http-context": "^1.2.4",
+    "express-request-proxy": "^2.2.2",
+    "express-session": "^1.15.6",
+    "fs-extra": "^9.0.1",
+    "http": "0.0.1-security",
+    "http-proxy-middleware": "^1.0.6",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.15",
+    "node-blob": "0.0.2",
+    "node-uuid": "^1.4.8",
+    "nodejs-sonar-scanner": "^4.0.4",
+    "redis": "^3.0.2",
+    "request-promise": "^4.2.2",
+    "simple-encryptor": "^4.0.0",
+    "socket.io": "^3.1.2",
+    "socket.io-redis": "^5.4.0",
+    "mocha": "^9.2.0",
+    "nyc": "^15.1.0"
+  },
+  "devDependencies": {
+    "@babel/register": "^7.17.0",
+    "bl": "^2.2.1",
+    "chai": "^4.2.0",
+    "nock": "^13.0.3",
+    "nodemon": "^2.0.4",
+    "sinon": "^9.0.2",
+    "supertest": "^4.0.2",
+    "tape": "^5.0.1"
+  },
+  "nyc": {
+    "all": true,
+    "include": [
+      "src/**/*.js"
+    ],
+    "exclude": [
+      "src/behaviour/*",
+      "src/app-config.js"
+    ]
+  },
+  "scripts": {
+    "tsc-script": "tsc src/behaviour/implementInterface.ts",
+    "design-build": "node multi-transpiler.js",
+    "build": "rimraf build && babel . --ignore node_modules,build,test --out-dir build --copy-files",
+    "start:dev": "set DEBUG=express-request-proxy:proxy &&  nodemon -r babel-register server.js",
+    "start": "set API_CACHE_ENABLED=false && set API_CACHE_DEBUG=false  && node  build/src/server.js",
+    "sonar": "sonar-scanner",
+    "test": "mocha",
+    "test-coverage": "nyc --reporter=lcov --reporter=text mocha --timeout 10000 test/*.js --exit"
+  },
+  "publishConfig": {
+    "registry": "https://artifactory.ops.bhge.ai/artifactory/api/npm/npm-local/"
+  }
+}

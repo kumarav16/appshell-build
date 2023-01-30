@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScreenCaptures verify for ScreenCaptures props children 1`] = `ShallowWrapper {}`;
+
+exports[`ScreenCaptures verify for ThankuFeedback props children 1`] = `ShallowWrapper {}`;

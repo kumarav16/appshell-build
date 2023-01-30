@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserInfoPopUp verify for UserInfoPopUp data when loads with empty strings 1`] = `ReactWrapper {}`;
