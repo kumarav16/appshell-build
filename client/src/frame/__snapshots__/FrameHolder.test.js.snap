@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Frame Holder snapshot 1`] = `ShallowWrapper {}`;
-
-exports[`Frame Holder snapshot thirdPartyApp=true 1`] = `ShallowWrapper {}`;

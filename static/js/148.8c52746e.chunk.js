@@ -1,0 +1,2 @@
+(this["webpackJsonpapp-shell-client"]=this["webpackJsonpapp-shell-client"]||[]).push([[148],{2038:function(s,t,e){"use strict";e.r(t),t.default=e.p+"static/media/ListItems.test.js.58e3ffd7.snap"}}]);
+//# sourceMappingURL=148.8c52746e.chunk.js.map

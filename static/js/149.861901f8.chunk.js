@@ -1,0 +1,2 @@
+(this["webpackJsonpapp-shell-client"]=this["webpackJsonpapp-shell-client"]||[]).push([[149],{2039:function(s,t,e){"use strict";e.r(t),t.default=e.p+"static/media/NotificationsMenu.test.js.4ba673ee.snap"}}]);
+//# sourceMappingURL=149.861901f8.chunk.js.map

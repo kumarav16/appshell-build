@@ -1,0 +1,2 @@
+(this["webpackJsonpapp-shell-client"]=this["webpackJsonpapp-shell-client"]||[]).push([[52,116],{719:function(e,r,s){},721:function(e,r,s){"use strict";s.r(r);s(0),s(719);var c=s(664),t=s(4);r.default=Object(c.a)()((function(e){return Object(t.jsxs)(t.Fragment,{children:[Object(t.jsx)("div",{className:"errorWrapper",children:Object(t.jsx)("img",{src:e.errorImage,alt:"Error"})}),Object(t.jsx)("div",{className:"errMsg ".concat(e.ErrMsgClass),children:e.msg})]})}))}}]);
+//# sourceMappingURL=52.64aec155.chunk.js.map
