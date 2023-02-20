@@ -24,8 +24,8 @@ pipeline {
                  sh '''
               echo $container_name
               # Login to Azure with ServicePrincipal
-              az login --service-principal -u $Azure_token_CLIENT_ID -p $Azure_token_CLIENT_SECRET -t $Azure_token_TENANT_ID
-              #az login --service-principal -u 'c565a738-3c43-41c8-9afb-918e1babaa7c' -p 'Shf8Q~aZridHAFUq8O4gzN197dQgdEeDtuMHKa3y' -t '9e0a6f2e-e851-416c-8abf-5443a828278e'
+              #az login --service-principal -u $Azure_token_CLIENT_ID -p $Azure_token_CLIENT_SECRET -t $Azure_token_TENANT_ID
+              az login --service-principal -u 'c565a738-3c43-41c8-9afb-918e1babaa7c' -p 'Shf8Q~aZridHAFUq8O4gzN197dQgdEeDtuMHKa3y' -t '9e0a6f2e-e851-416c-8abf-5443a828278e'
               # Set default subscription
               az account set --subscription $Azure_token_SUBSCRIPTION_ID
               # Execute upload to Azure
