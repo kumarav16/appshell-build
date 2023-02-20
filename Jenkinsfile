@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment{
-                Azure_token = credentials('AZURE_SP_ID')
+                Azure_token = credentials('AZURE_Service_ID')
                 AZURE_STORAGE_ACCOUNT='appshellsa'
                 AZURE_CONTAINER_NAME='buildappshell'
             }
